@@ -12,9 +12,14 @@ public class CacheManager : ICacheManager
         _distributedCache = distributedCache;
     }
 
-    public async Task Add(string key, string value, TimeSpan? expireTime)
+    public async Task Add(string key, string value)
     {
-        await _distributedCache.SetStringAsync($"{cacheBase}_{key}", value, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30)));
+        await _distributedCache.SetStringAsync($"{cacheBase}_{key}", value);
+    }
+
+    public async Task AddWithTimeSpan(string key, string value, TimeSpan expireTime)
+    {
+        await _distributedCache.SetStringAsync($"{cacheBase}_{key}", value, new DistributedCacheEntryOptions().SetSlidingExpiration(expireTime));
     }
 
     public async Task<string?> Get(string key)

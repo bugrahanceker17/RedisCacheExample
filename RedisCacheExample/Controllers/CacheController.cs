@@ -38,6 +38,14 @@ public class CacheController : Controller
         return Ok(new { Result = "cache created!" });
     }
     
+    [HttpDelete]
+    public async Task<ActionResult> Delete()
+    {
+        await _distributedCache.RemoveAsync(cacheName);
+
+        return Ok(new { Result = "cache deleted!" });
+    }
+    
     [HttpGet("customized")]
     public async Task<ActionResult> CustomizedGet()
     {
@@ -54,7 +62,15 @@ public class CacheController : Controller
     [HttpPost("customized")]
     public async Task<ActionResult> CustomizedSet([FromBody] string value)
     {
-        await _cacheManager.Add(cacheName, value, TimeSpan.FromSeconds(50));
+        await _cacheManager.AddWithTimeSpan(cacheName, value, TimeSpan.FromSeconds(50));
         return Ok(new { Result = "cache created!" });
+    }
+    
+    [HttpDelete("customized")]
+    public async Task<ActionResult> CustomizedDelete()
+    {
+        await _cacheManager.Remove(cacheName);
+
+        return Ok(new { Result = "cache deleted!" });
     }
 }
