@@ -1,0 +1,18 @@
+# JetBrains Rider
+.idea/
+.vs/
+
+# Geçici dosyalar ve klasörler
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.dll
+*.pdb
+_ReSharper.*
+packages
